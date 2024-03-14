@@ -1,4 +1,4 @@
-package com.challenge.financial.schedulingfinancial;
+package com.challenge.financial.scheduling;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
