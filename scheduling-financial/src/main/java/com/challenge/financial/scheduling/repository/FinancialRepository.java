@@ -1,6 +1,6 @@
-package com.challenge.financial.scheduling.repositories;
+package com.challenge.financial.scheduling.repository;
 
-import com.challenge.financial.scheduling.entities.Financial;
+import com.challenge.financial.scheduling.entity.Financial;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

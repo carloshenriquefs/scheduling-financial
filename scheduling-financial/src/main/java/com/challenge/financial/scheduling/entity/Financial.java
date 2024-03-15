@@ -1,6 +1,9 @@
-package com.challenge.financial.scheduling.entities;
+package com.challenge.financial.scheduling.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,7 +20,6 @@ public class Financial {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     @Column(name = "source_account")
     private String sourceAccount;
     @Column(name = "target_account")

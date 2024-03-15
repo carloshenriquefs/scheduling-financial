@@ -1,4 +1,4 @@
-package com.challenge.financial.scheduling.entities;
+package com.challenge.financial.scheduling.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
