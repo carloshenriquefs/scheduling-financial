@@ -24,6 +24,6 @@ public class User {
     private String age;
 
     @OneToMany(mappedBy = "user")
-    private Set<Financial> financials = new HashSet<>();
+    private Set<Transfer> transfers = new HashSet<>();
 
 }
