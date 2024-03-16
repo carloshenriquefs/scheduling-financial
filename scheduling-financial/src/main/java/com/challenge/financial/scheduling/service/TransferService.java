@@ -21,8 +21,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.stream.Collectors;
 
-import static com.challenge.financial.scheduling.constants.Constants.DAYS_RANGES;
-import static com.challenge.financial.scheduling.constants.Constants.TAX_RATES;
+import static com.challenge.financial.scheduling.constants.ConstantsMessage.*;
+import static com.challenge.financial.scheduling.constants.ConstantsNumeric.*;
 
 @Service
 public class TransferService {
@@ -32,7 +32,7 @@ public class TransferService {
     private TransferRepository repository;
 
     public List<TransferDTO> findAllTransfer() {
-        List<Transfer> result = repository.findAll(Sort.by("targetAccount"));
+        List<Transfer> result = repository.findAll(Sort.by(TARGED_ACCOUNT));
         return result.stream().map(x -> new TransferDTO(x)).collect(Collectors.toList());
     }
 
@@ -44,28 +44,28 @@ public class TransferService {
 
         transfer.setRate(rate);
 
-        DecimalFormat df = new DecimalFormat("0.00", new DecimalFormatSymbols(Locale.US));
+        DecimalFormat df = new DecimalFormat(NUMBER_ZERO, new DecimalFormatSymbols(Locale.US));
         transfer.setTransferAmount(Double.parseDouble(df.format(valueWithRate)));
 
         transfer.setDataTransfer(new Date());
 
         Transfer savedTransfer = repository.save(transfer);
 
-        logger.info("Transfer scheduled successfuly: {}", savedTransfer);
+        logger.info(TRANSFER_SCHEDULED_SUCCESSFULY, savedTransfer);
 
         return savedTransfer;
     }
 
     void validateTransfer(Transfer transfer) {
         if (transfer.getTransferAmount() <= 0) {
-            throw new TransferValidationException("O valor da transferência precisa ser maior do que zero.", HttpStatus.BAD_REQUEST);
+            throw new TransferValidationException(TRANSFERENCIA_MAIOR_QUE_ZERO, HttpStatus.BAD_REQUEST);
         }
 
         LocalDate currentDate = LocalDate.now();
         LocalDate transferLocalDate = transfer.getDataTransfer().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 
         if (transferLocalDate.isBefore(currentDate)) {
-            throw new TransferValidationException("A data de transferência não pode ser antes da data atual.", HttpStatus.BAD_REQUEST);
+            throw new TransferValidationException(TRANSFERENCIA_NAO_PODE_SER_ANTES_DATA_ATUAL, HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -82,10 +82,10 @@ public class TransferService {
 
         if (index < TAX_RATES.length) {
             double fee = transferAmount > 0 ? TAX_RATES[index] : 0.0;
-            logger.info("Calculated fee: {}", fee);
+            logger.info(CALCULATED_FEE, fee);
             return fee;
         } else {
-            throw new TransferValidationException("No momento não existe taxas para transferência.", HttpStatus.BAD_REQUEST);
+            throw new TransferValidationException(NAO_EXISTEM_TAXAS_PARA_TRANSFERENCIA, HttpStatus.BAD_REQUEST);
         }
     }
 }
