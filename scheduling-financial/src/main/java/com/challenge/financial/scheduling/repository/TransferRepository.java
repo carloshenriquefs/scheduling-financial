@@ -1,9 +1,10 @@
 package com.challenge.financial.scheduling.repository;
 
-import com.challenge.financial.scheduling.entity.Financial;
+import com.challenge.financial.scheduling.entity.Transfer;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface FinancialRepository extends JpaRepository<Financial, Long> {
+public interface TransferRepository extends JpaRepository<Transfer, Long> {
+
 }
